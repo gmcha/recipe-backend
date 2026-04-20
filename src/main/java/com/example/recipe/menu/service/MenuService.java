@@ -29,9 +29,7 @@ public class MenuService {
     }
 
     public MenuResponseDto createMenu(MenuCreateRequestDto requestDto) {
-        Menu requestMenu = new Menu();
-        requestMenu.setTitle(requestDto.getTitle());
-        requestMenu.setDescription(requestDto.getDescription());
+        Menu requestMenu = new Menu(requestDto.getTitle(), requestDto.getDescription());
 
         Menu responseMenu = menuRepository.save(requestMenu);
         return new MenuResponseDto(responseMenu.getId(), responseMenu.getTitle(), responseMenu.getDescription());
@@ -41,13 +39,6 @@ public class MenuService {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 메뉴입니다."));
 
-        // DTO로 넣기
-        DetailedMenuResponseDto responseDto = new DetailedMenuResponseDto();
-        responseDto.setId(menu.getId());
-        responseDto.setTitle(menu.getTitle());
-        responseDto.setDescription(menu.getDescription());
-        responseDto.setSteps(menu.getSteps());
-
-        return responseDto;
+        return new DetailedMenuResponseDto(menu.getId(), menu.getTitle(), menu.getDescription(), menu.getSteps());
     }
 }
