@@ -35,6 +35,12 @@ public class MenuController {
     DetailedMenuResponseDto getDetailedMenu(@PathVariable Long id){
         return menuService.getDetailedMenu(id);
     }
+
+    // 메뉴 삭제
+    @DeleteMapping("/menus/{id}")
+    void deleteMenu(@PathVariable Long id){
+        menuService.deleteMenu(id);
+    }
 }
 
 

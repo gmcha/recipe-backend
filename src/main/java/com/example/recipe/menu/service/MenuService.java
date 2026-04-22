@@ -41,4 +41,8 @@ public class MenuService {
 
         return new DetailedMenuResponseDto(menu.getId(), menu.getTitle(), menu.getDescription(), menu.getSteps());
     }
+
+    public void deleteMenu(Long id){
+        menuRepository.deleteById(id);
+    }
 }

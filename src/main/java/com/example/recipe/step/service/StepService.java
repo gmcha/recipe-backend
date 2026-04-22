@@ -22,20 +22,6 @@ public class StepService {
         this.menuRepository = menuRepository;
     }
 
-    public List<String> getMenuTitlesOfSteps(){
-        // 전체 steps의 menu 들고오기
-        List<Step> steps = stepRepository.findAll();
-
-        // steps -> menu.title로 매핑하기
-        return steps.stream()
-                .map(step -> step.getMenu().getTitle())
-                .toList();
-    }
-
-    public List<Step> getSteps(Long menuId){
-        return stepRepository.findAllByMenuId(menuId);
-    }
-
     @Transactional
     public List<StepResponseDto> updateSteps(Long menuId, List<StepRequestDto> requestDtos){
         Menu menu = menuRepository.findById(menuId)

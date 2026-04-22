@@ -24,7 +24,7 @@ public class Menu {
 
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu", cascade = CascadeType.REMOVE)
     @JsonIgnore
     @OrderBy("stepNumber ASC")
     List<Step> steps = new ArrayList<>();
