@@ -5,6 +5,8 @@ import com.example.recipe.menu.dto.DetailedMenuResponseDto;
 import com.example.recipe.menu.dto.MenuCreateRequestDto;
 import com.example.recipe.menu.dto.MenuResponseDto;
 import com.example.recipe.menu.service.MenuService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,26 +22,35 @@ public class MenuController {
 
     // 전체 메뉴 조회
     @GetMapping("/menus")
-    List<MenuResponseDto> getMenus(){
-        return menuService.getMenus();
+    ResponseEntity<List<MenuResponseDto>> getMenus(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(menuService.getMenus());
     }
 
     // 메뉴 생성
     @PostMapping("/menus")
-    MenuResponseDto createMenu(@RequestBody MenuCreateRequestDto requestDto) {
-        return menuService.createMenu(requestDto);
+    ResponseEntity<MenuResponseDto> createMenu(@RequestBody MenuCreateRequestDto requestDto) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(menuService.createMenu(requestDto));
     }
 
     // 메뉴 상세 조회
     @GetMapping("/menus/{id}")
-    DetailedMenuResponseDto getDetailedMenu(@PathVariable Long id){
-        return menuService.getDetailedMenu(id);
+    ResponseEntity<DetailedMenuResponseDto> getDetailedMenu(@PathVariable Long id){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(menuService.getDetailedMenu(id));
     }
 
     // 메뉴 삭제
     @DeleteMapping("/menus/{id}")
-    void deleteMenu(@PathVariable Long id){
+    ResponseEntity<Void> deleteMenu(@PathVariable Long id){
         menuService.deleteMenu(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 }
 
