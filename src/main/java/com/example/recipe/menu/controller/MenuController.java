@@ -1,8 +1,7 @@
 package com.example.recipe.menu.controller;
 
-import com.example.recipe.menu.domain.Menu;
 import com.example.recipe.menu.dto.DetailedMenuResponseDto;
-import com.example.recipe.menu.dto.MenuCreateRequestDto;
+import com.example.recipe.menu.dto.MenuRequestDto;
 import com.example.recipe.menu.dto.MenuResponseDto;
 import com.example.recipe.menu.service.MenuService;
 import org.springframework.http.HttpStatus;
@@ -30,7 +29,7 @@ public class MenuController {
 
     // 메뉴 생성
     @PostMapping("/menus")
-    ResponseEntity<MenuResponseDto> createMenu(@RequestBody MenuCreateRequestDto requestDto) {
+    ResponseEntity<MenuResponseDto> createMenu(@RequestBody MenuRequestDto requestDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(menuService.createMenu(requestDto));
@@ -51,6 +50,14 @@ public class MenuController {
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
+    }
+
+    // 메뉴 수정
+    @PutMapping("/menus/{id}")
+    ResponseEntity<MenuResponseDto> editMenu(@PathVariable Long id, @RequestBody MenuRequestDto menuRequestDto){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(menuService.editMenu(id, menuRequestDto));
     }
 }
 

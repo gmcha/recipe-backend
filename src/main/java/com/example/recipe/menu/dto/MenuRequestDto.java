@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class MenuCreateRequestDto {
+public class MenuRequestDto {
     private String title;
     private String description;
 }

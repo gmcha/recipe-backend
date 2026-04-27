@@ -33,4 +33,10 @@ public class Menu {
         this.title = title;
         this.description = description;
     }
+
+    public Menu(Long id, String title, String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
 }

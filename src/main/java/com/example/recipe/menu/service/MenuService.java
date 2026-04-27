@@ -2,7 +2,7 @@ package com.example.recipe.menu.service;
 
 import com.example.recipe.menu.domain.Menu;
 import com.example.recipe.menu.dto.DetailedMenuResponseDto;
-import com.example.recipe.menu.dto.MenuCreateRequestDto;
+import com.example.recipe.menu.dto.MenuRequestDto;
 import com.example.recipe.menu.dto.MenuResponseDto;
 import com.example.recipe.menu.repository.MenuRepository;
 import com.example.recipe.step.repository.StepRepository;
@@ -28,7 +28,7 @@ public class MenuService {
         ).toList();
     }
 
-    public MenuResponseDto createMenu(MenuCreateRequestDto requestDto) {
+    public MenuResponseDto createMenu(MenuRequestDto requestDto) {
         Menu requestMenu = new Menu(requestDto.getTitle(), requestDto.getDescription());
 
         Menu responseMenu = menuRepository.save(requestMenu);
@@ -44,5 +44,12 @@ public class MenuService {
 
     public void deleteMenu(Long id){
         menuRepository.deleteById(id);
+    }
+
+    public MenuResponseDto editMenu(Long id, MenuRequestDto requestDto){
+        Menu menu = new Menu(id, requestDto.getTitle(), requestDto.getDescription());
+
+        menuRepository.save(menu);
+        return new MenuResponseDto(menu.getId(), menu.getTitle(), menu.getDescription());
     }
 }
